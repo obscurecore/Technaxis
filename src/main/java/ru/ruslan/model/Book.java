@@ -10,6 +10,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.Lob;
 import javax.validation.constraints.Size;
+import java.net.URL;
 
 @Data
 @AllArgsConstructor
@@ -37,7 +38,6 @@ public class Book {
     private Integer printYear;
     private boolean readAlready;
 
-    @Lob
-    private byte[] image;
+    private URL image;
 
 }
