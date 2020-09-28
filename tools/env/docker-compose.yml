@@ -1,0 +1,14 @@
+version: '3.1'
+
+services:
+
+  dbPostgres:
+    image: postgres:10
+    restart: always
+    ports:
+      - 5555:5432
+    environment:
+      POSTGRES_USER: batman
+      POSTGRES_PASSWORD: batman
+      POSTGRES_DB: Books
+
