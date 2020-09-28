@@ -1,8 +1,20 @@
 package ru.ruslan.model;
 
-import javax.persistence.*;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+import javax.persistence.Lob;
 import javax.validation.constraints.Size;
 
+@Data
+@AllArgsConstructor
+@NoArgsConstructor
+@Builder
 @Entity
 public class Book {
 
@@ -23,10 +35,9 @@ public class Book {
     private String isbn;
 
     private Integer printYear;
-
     private boolean readAlready;
 
     @Lob
-    @Column(columnDefinition = "BLOB")
     private byte[] image;
+
 }
