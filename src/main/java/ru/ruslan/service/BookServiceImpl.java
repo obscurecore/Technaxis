@@ -1,12 +1,17 @@
 package ru.ruslan.service;
 
 import lombok.AllArgsConstructor;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Component;
-import org.springframework.util.StringUtils;
 import ru.ruslan.error.BookNotFoundException;
 import ru.ruslan.error.BookUnSupportedFieldPatchException;
 import ru.ruslan.model.Book;
 import ru.ruslan.repository.BookRepository;
+
+import java.util.List;
+import java.util.Optional;
 
 @Component
 @AllArgsConstructor
@@ -36,8 +41,11 @@ public class BookServiceImpl implements BookService {
 
     @Override
     public Book findOne(Long id) {
-        return repository.findById(id)
-                .orElseThrow(() -> new BookNotFoundException(id));
+        Optional<Book> bookOptional = repository.findById(id);
+        if (bookOptional.isPresent()) {
+            return bookOptional.get();
+        }
+        throw new BookNotFoundException(id);
     }
 
     @Override
@@ -56,6 +64,12 @@ public class BookServiceImpl implements BookService {
                     throw new BookNotFoundException(id);
                 });
 
+    }
+
+    @Override
+    public List<Book> pageableFinding(Integer size) {
+        Pageable page = PageRequest.of(0, size, Sort.by("id").descending());
+        return repository.findAll(page);
     }
 
 
