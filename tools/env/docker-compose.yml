@@ -1,13 +1,14 @@
-version: '3.1'
+version: "3.3"
 services:
-
-  dbPostgres:
-    image: postgres:10
-    restart: always
+  postgres:
+    image: "postgres"
     ports:
-      - 5555:5432
+      - "6666:5432"
+    volumes:
+      - postgres:/var/lib/postgresql/data
     environment:
-      POSTGRES_USER: batman
-      POSTGRES_PASSWORD: batman
-      POSTGRES_DB: Books
-
+      - POSTGRES_USER=${POSTGRES_USER}
+      - POSTGRES_PASSWORD=${POSTGRES_PASSWORD}
+      - POSTGRES_DB=${POSTGRES_DB}
+volumes:
+  postgres:
