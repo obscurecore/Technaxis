@@ -37,7 +37,6 @@ public class Book {
 
     private Integer printYear;
     private boolean readAlready;
-
     private URL image;
 
 }
