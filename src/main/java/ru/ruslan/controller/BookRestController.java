@@ -1,30 +1,35 @@
 package ru.ruslan.controller;
 
 import lombok.AllArgsConstructor;
-import org.springframework.data.domain.PageRequest;
-import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 import ru.ruslan.model.Book;
-import ru.ruslan.repository.BookRepository;
 import ru.ruslan.service.BookService;
+import ru.ruslan.service.ConstraintService;
 
+import javax.validation.ConstraintViolationException;
+import javax.validation.constraints.Min;
 import java.util.List;
+import java.util.Map;
 
 @AllArgsConstructor
 @RestController
 @RequestMapping("/books")
+@Validated
 public class BookRestController {
-    private final BookRepository repository;
     private final BookService bookService;
+    private final ConstraintService constraintService;
 
-    // Find
+    /**
+     * Get a list of books
+     *
+     * @param size length of the page. Minimum is 1
+     * @return the list
+     */
     @GetMapping("/page/{size}")
-    List<Book> findAll(@PathVariable Integer size
-            /*  @PageableDefault(sort = {"id"}, direction = Sort.Direction.DESC, size = 10) Pageable pageable*/) {
-        Pageable firstPageWithTwoElements = PageRequest.of(0, size);
-
-        return null;// return (List<Book>) repository.findAll(pageable);
+    List<Book> pageableFinding(@Min(1) @PathVariable(required = true) Integer size) {
+        return bookService.pageableFinding(size);
     }
 
     /**
@@ -39,7 +44,13 @@ public class BookRestController {
         return bookService.saveBook(newBook);
     }
 
-    // Find one
+
+    /**
+     * Find one book.
+     *
+     * @param id the id
+     * @return the book
+     */
     @GetMapping("/{id}")
     Book findOne(@PathVariable Long id) {
         return bookService.findOne(id);
@@ -51,16 +62,35 @@ public class BookRestController {
      *
      * @param newBook the new book
      * @param id      the id
-     * @return the book
+     * @return 200 code
      */
     @PutMapping("/{id}")
-    Book editBook(@RequestBody Book newBook, @PathVariable Long id) {
-        return bookService.modification(newBook, id);
+    @ResponseStatus(value = HttpStatus.OK)
+    void editBook(@RequestBody Book newBook, @PathVariable Long id) {
+        bookService.modification(newBook, id);
     }
 
-    // update author only
+    /**
+     * Update status of reading the book - readAlready.
+     *
+     * @param id the id
+     * @return 200 code
+     */
     @PatchMapping("/{id}")
-    Book patch(@PathVariable Long id) {
-        return bookService.updateField(id);
+    @ResponseStatus(value = HttpStatus.OK)
+    void patch(@PathVariable Long id) {
+        bookService.updateField(id);
+    }
+
+    /**
+     * Handle constraint validation exceptions
+     *
+     * @param ex the ex
+     * @return the map
+     */
+    @ExceptionHandler
+    @ResponseStatus(HttpStatus.BAD_REQUEST)
+    public Map<String, String> handleConstraintValidationExceptions(ConstraintViolationException ex) {
+        return constraintService.getConstraintErrors(ex);
     }
 }
