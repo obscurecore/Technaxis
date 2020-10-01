@@ -72,5 +72,12 @@ public class BookServiceImpl implements BookService {
         return repository.findAll(page);
     }
 
+    @Override
+    public List<Book> findBooksByKeyword(String s, Integer size) {
+        Pageable page = PageRequest.of(0, size);
+        return repository.findPhrasesInBooksWithPagination(s, page);
+
+    }
+
 
 }

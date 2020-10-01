@@ -10,5 +10,6 @@ public interface BookService {
     Book findOne (Long id);
     Book updateField(Long id);
     List<Book> pageableFinding(Integer size);
+    List<Book> findBooksByKeyword (String s, Integer size);
 }
 
