@@ -33,6 +33,18 @@ public class BookRestController {
     }
 
     /**
+     * Find books by keyword and paginated output.
+     *
+     * @param s    the phrase
+     * @param size the size of page
+     * @return the list
+     */
+    @GetMapping("/phrase/{s}/page/{size}")
+    List<Book> findBooksByKeyword(@PathVariable(required = true) String s,  @PathVariable(required = true) Integer size){
+        return bookService.findBooksByKeyword(s,size);
+    }
+
+    /**
      * Save the book
      *
      * @param newBook the new book
@@ -53,6 +65,7 @@ public class BookRestController {
      */
     @GetMapping("/{id}")
     Book findOne(@PathVariable Long id) {
+        System.err.println("IUD++++++= "+ id);
         return bookService.findOne(id);
     }
 
