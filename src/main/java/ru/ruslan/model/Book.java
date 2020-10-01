@@ -5,10 +5,10 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
-import javax.persistence.Lob;
 import javax.validation.constraints.Size;
 import java.net.URL;
 
@@ -26,7 +26,7 @@ public class Book {
     @Size(max = 100)
     private String title;
 
-    @Lob
+    @Column(columnDefinition = "TEXT")
     private String description;
 
     @Size(max = 100)
@@ -38,5 +38,4 @@ public class Book {
     private Integer printYear;
     private boolean readAlready;
     private URL image;
-
 }
