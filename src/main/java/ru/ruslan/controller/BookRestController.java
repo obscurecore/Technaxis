@@ -33,7 +33,14 @@ public class BookRestController {
     List<Book> pageableFinding(@Min(1) @PathVariable(required = true) Integer size) {
         return bookService.pageableFinding(size);
     }
-    //YYYY-MM-DD.
+
+    /**
+     * Book statistics list. Doesn't matter what order
+     *
+     * @param date1 one border
+     * @param date2 one border
+     * @return the list
+     */
     @GetMapping("/statistics/{date1}/{date2}")
     List<BookStatistics> bookStatistics (@PathVariable(required = true) Date date1, @PathVariable(required = true) Date date2) {
         return bookService.bookStatistics(date1,date2);
