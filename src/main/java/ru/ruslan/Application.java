@@ -5,8 +5,11 @@ import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import ru.ruslan.model.Book;
 import ru.ruslan.repository.BookRepository;
+
 import java.net.URL;
 
 @SpringBootApplication
@@ -19,7 +22,7 @@ public class Application {
     @Bean
     CommandLineRunner initDatabase(BookRepository repository) {
         return args -> {
-            for (int i = 0; i < 100; i++) {
+            for (int i = 0; i < 5; i++) {
 
                 repository.save(Book.builder().title("title" + i)
                         .description(StringUtils.repeat("Description ", i))
