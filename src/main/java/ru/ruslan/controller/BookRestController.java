@@ -4,12 +4,14 @@ import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
+import ru.ruslan.dto.BookStatistics;
 import ru.ruslan.model.Book;
 import ru.ruslan.service.BookService;
 import ru.ruslan.service.ConstraintService;
 
 import javax.validation.ConstraintViolationException;
 import javax.validation.constraints.Min;
+import java.sql.Date;
 import java.util.List;
 import java.util.Map;
 
@@ -31,6 +33,12 @@ public class BookRestController {
     List<Book> pageableFinding(@Min(1) @PathVariable(required = true) Integer size) {
         return bookService.pageableFinding(size);
     }
+    //YYYY-MM-DD.
+    @GetMapping("/statistics/{date1}/{date2}")
+    List<BookStatistics> bookStatistics (@PathVariable(required = true) Date date1, @PathVariable(required = true) Date date2) {
+        return bookService.bookStatistics(date1,date2);
+    }
+
 
     /**
      * Find books by keyword and paginated output.
@@ -65,7 +73,6 @@ public class BookRestController {
      */
     @GetMapping("/{id}")
     Book findOne(@PathVariable Long id) {
-        System.err.println("IUD++++++= "+ id);
         return bookService.findOne(id);
     }
 
