@@ -1,10 +1,13 @@
-###
+GET http://localhost:8080/books/phrase/Description/page/1
+Accept: application/json
+
+##
+
 GET http://localhost:8080/books/1
 Accept: application/json
 
+##
 
-
-###
 GET http://localhost:8080/books/page/0
 Accept: application/json
 
