@@ -1,4 +1,4 @@
-package ru.ruslan.service;
+package ru.ruslan.service.contract;
 
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.MethodArgumentNotValidException;

@@ -1,4 +1,4 @@
-package ru.ruslan.service;
+package ru.ruslan.service.contract;
 
 import ru.ruslan.dto.BookStatistics;
 import ru.ruslan.model.Book;

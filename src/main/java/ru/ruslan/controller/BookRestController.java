@@ -6,8 +6,8 @@ import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 import ru.ruslan.dto.BookStatistics;
 import ru.ruslan.model.Book;
-import ru.ruslan.service.BookService;
-import ru.ruslan.service.ConstraintService;
+import ru.ruslan.service.contract.BookService;
+import ru.ruslan.service.contract.ConstraintService;
 
 import javax.validation.ConstraintViolationException;
 import javax.validation.constraints.Min;
