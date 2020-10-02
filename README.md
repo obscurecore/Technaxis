@@ -1,48 +1,42 @@
 # Technaxis
-Необходимо реализовать REST API сервис, который предназначен для управления списком всех книг в базе. С возможностью их удаления, редактирования, добавления новых, и поиска по уже существующим.
 
-#### Данные, которые должны быть в таблице:
-* id – идентификатор книги в БД;
-* title – название книги. Можно использовать тип VARCHAR(100);
-* description – краткое описание о чем книга. Можно использовать тип TEXT;
-* author – фамилия и имя автора. Можно использовать тип VARCHAR(100);
-* isbn – ISBN книги. Можно использовать тип VARCHAR(20);
-* printYear – в каком году напечатана книга (INT);
-* readAlready – читал ли кто-то эту книгу. (Boolean).
-* image - обложка книги
+## Table of Contents
+- [Database Model](#database-model)
 
+  
+  
+## Database Model
+![model](book_vector.png)
+
+To increase the search speed create index 
+and reduce the creation of vectors by adding a new field (tsv) and separate because you don't need to back up
+ 
+Create index 
+```postgresql
+
+CREATE INDEX idx_gin_document
+    ON book_vector
+        USING gin ("tsv");
+```
 ---
-#### Должна быть возможность через REST API:
-* Создать книгу
-* Обновить книгу (заменить на новое издание, описано ниже)
-* Отметить книгу прочитанной (изменение readAlready)
-* Получить список книг (с пагинацией, например, 10 книг на странице, но параметр должен меняться)
-* Получить информацию о конкретной книге (картинка должна быть ссылкой с полным путем)
-* Найти книгу по фразе (с пагинацией, регистронезависимо)
 
+Adding occurs via a trigger
+```postgresql
+CREATE FUNCTION trg_tsv_trigger() RETURNS trigger AS
+$$
+BEGIN
+    insert into book_vector (id, tsv) values (new.id, to_tsvector('english', COALESCE(NEW.description, '')));
+    RETURN new;
+END
+$$ LANGUAGE plpgsql;
+```
 ---
-#### Бизнес требования: 
-При редактировании может быть 2 варианта поведения:
-1. Книгу прочитали, и тогда изменяется только поле readAlready, и только, если оно было false. Значения поля должно стать true.
-1. Книгу заменили на новое издание. В этом случае должна быть возможность изменить title, description, isbn, printYear, image. А поле readAlready нужно выставить в false. Поле author должно быть неизменным с момента создания книги.
 
----
-#### Технические требования:
-* Spring Boot;
-* PostgreSQL;
-* Maven 3 
-* Аккуратно оформленный код
-Результат выложить на GitHub или Bitbucket.
-
-`Дополнительные плюсы` (их можно получить выполнив пункты ниже, но они не обязательны)
-* Документация REST API (ручная или автоматическая)
-* Использование AWS, Google Cloud, Yandex Cloud, etc для хранения медиафайлов
-* Предоставление инструкции для развертывания
-* Упаковка в Docker и предоставление Dockerfile 
-* PostgreSQL FTS
-* Деплой в heroku
-* Создание UI для приложения, которое использует данный REST API (Freemarker, Angular, React, в данном случае это не важно)
-* Статистика по прочтениям
-    1. Добавить поле кол-во прочтений книги
-    2. Добавить API для инкремента количества прочтений
-    3. Получить список книг, где поле с количеством прочтений показывается за определенный период (от/до - параметры запроса)
+Example of how to get data with a keyword
+```postgresql
+EXPLAIN (ANALYSE )
+SELECT book.id
+FROM book
+         INNER JOIN book_vector bv on book.id = bv.id
+WHERE tsv @@ plainto_tsquery('rus');
+```
