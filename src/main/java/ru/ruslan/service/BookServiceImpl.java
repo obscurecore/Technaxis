@@ -10,7 +10,6 @@ import ru.ruslan.error.BookNotFoundException;
 import ru.ruslan.error.BookUnSupportedFieldPatchException;
 import ru.ruslan.model.Book;
 import ru.ruslan.repository.contract.BookRepository;
-import ru.ruslan.repository.BookRepositoryJdbcTemplateImpl;
 import ru.ruslan.repository.contract.BookRepositoryJdbcTemplate;
 import ru.ruslan.service.contract.BookService;
 

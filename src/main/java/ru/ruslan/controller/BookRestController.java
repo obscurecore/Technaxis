@@ -42,8 +42,8 @@ public class BookRestController {
      * @return the list
      */
     @GetMapping("/statistics/{date1}/{date2}")
-    List<BookStatistics> bookStatistics (@PathVariable(required = true) Date date1, @PathVariable(required = true) Date date2) {
-        return bookService.bookStatistics(date1,date2);
+    List<BookStatistics> bookStatistics(@PathVariable(required = true) Date date1, @PathVariable(required = true) Date date2) {
+        return bookService.bookStatistics(date1, date2);
     }
 
 
@@ -55,8 +55,8 @@ public class BookRestController {
      * @return the list
      */
     @GetMapping("/phrase/{s}/page/{size}")
-    List<Book> findBooksByKeyword(@PathVariable(required = true) String s,  @PathVariable(required = true) Integer size){
-        return bookService.findBooksByKeyword(s,size);
+    List<Book> findBooksByKeyword(@PathVariable(required = true) String s, @PathVariable(required = true) Integer size) {
+        return bookService.findBooksByKeyword(s, size);
     }
 
     /**

@@ -1,7 +1,5 @@
 package ru.ruslan.error;
 
-import java.util.Set;
-
 public class BookUnSupportedFieldPatchException extends RuntimeException {
 
     public BookUnSupportedFieldPatchException(String keys) {
