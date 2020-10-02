@@ -5,11 +5,14 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Component;
+import ru.ruslan.dto.BookStatistics;
 import ru.ruslan.error.BookNotFoundException;
 import ru.ruslan.error.BookUnSupportedFieldPatchException;
 import ru.ruslan.model.Book;
 import ru.ruslan.repository.BookRepository;
+import ru.ruslan.repository.BookRepositoryJdbcTemplateImpl;
 
+import java.sql.Date;
 import java.util.List;
 import java.util.Optional;
 
@@ -17,6 +20,7 @@ import java.util.Optional;
 @AllArgsConstructor
 public class BookServiceImpl implements BookService {
     private final BookRepository repository;
+    private BookRepositoryJdbcTemplateImpl bookRepositoryJdbcTemplate;
 
     @Override
     public Book modification(Book newBook, Long id) {
@@ -77,6 +81,11 @@ public class BookServiceImpl implements BookService {
         Pageable page = PageRequest.of(0, size);
         return repository.findPhrasesInBooksWithPagination(s, page);
 
+    }
+
+    @Override
+    public List<BookStatistics> bookStatistics(Date d1, Date d2) {
+        return bookRepositoryJdbcTemplate.find(d1, d2);
     }
 
 
