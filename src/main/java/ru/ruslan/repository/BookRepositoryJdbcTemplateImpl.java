@@ -11,7 +11,7 @@ import java.util.List;
 @Repository
 public class BookRepositoryJdbcTemplateImpl {
     //language=SQL
-    private static final String SQL_SELECT_GROUP_In_THE_INTERVAL = "SELECT title, count(*) as Count FROM book WHERE read_already = true and date BETWEEN SYMMETRIC ? and ?";
+    private static final String SQL_SELECT_GROUP_In_THE_INTERVAL = "SELECT title, count(*) as Count FROM book WHERE read_already = true and date BETWEEN SYMMETRIC ? and ?  group by title";
 
     private JdbcTemplate jdbcTemplate;
 
@@ -21,7 +21,6 @@ public class BookRepositoryJdbcTemplateImpl {
 
     private RowMapper<BookStatistics> courseRowMapper = (row, rowNumber) ->
             BookStatistics.builder()
-                    .id(row.getLong("id"))
                     .title(row.getString("title"))
                     .count(row.getInt("count"))
                     .build();
