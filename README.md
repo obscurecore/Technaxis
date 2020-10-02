@@ -41,6 +41,18 @@ FROM book
          INNER JOIN book_vector bv on book.id = bv.id
 WHERE tsv @@ plainto_tsquery('rus');
 ```
+
+---
+
+Example of how to get statistics of books read in the interval
+
+```postgresql
+SELECT title, count(*) AS Count
+FROM book
+where read_already = true
+  and date BETWEEN SYMMETRIC '1982-00-00' AND '2049-00-00'
+group by title, description, author;
+```
 ## Dockerizing
 run the below command to create 
 of an image of our application.

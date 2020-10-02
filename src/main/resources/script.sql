@@ -64,9 +64,5 @@ CREATE INDEX idx_gin_document
         USING gin ("tsv");
 
 
-SELECT title, count(*) AS Count
-FROM book
-where read_already = true
-  and date BETWEEN SYMMETRIC '2014-02-01' AND '2014-02-28'
-group by title, description, author;
+
 
