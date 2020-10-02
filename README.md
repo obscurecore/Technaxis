@@ -65,6 +65,8 @@ of an image of our application.
 Documentation is generated automatically when running tests.
 
 The REST service documentation is guaranteed to match the logic of operation. The documentation is synchronized with the application logic
+
+`Example:`
 ```text
 MockHttpServletRequest:
       HTTP Method = GET
@@ -102,7 +104,4 @@ MockHttpServletResponse:
     Forwarded URL = null
    Redirected URL = null
           Cookies = []
-
-
-
 ```

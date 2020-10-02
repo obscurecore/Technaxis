@@ -11,6 +11,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.validation.constraints.Size;
 import java.net.URL;
+import java.sql.Date;
 
 @Data
 @AllArgsConstructor
@@ -38,4 +39,5 @@ public class Book {
     private Integer printYear;
     private boolean readAlready;
     private URL image;
+    private Date date;
 }
