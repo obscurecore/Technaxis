@@ -1,4 +1,4 @@
-package ru.ruslan.repository;
+package ru.ruslan.repository.contract;
 
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.Query;

@@ -1,6 +1,7 @@
 package ru.ruslan.service;
 
 import org.springframework.stereotype.Component;
+import ru.ruslan.service.contract.ConstraintService;
 
 import javax.validation.ConstraintViolation;
 import javax.validation.ConstraintViolationException;

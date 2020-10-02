@@ -9,8 +9,10 @@ import ru.ruslan.dto.BookStatistics;
 import ru.ruslan.error.BookNotFoundException;
 import ru.ruslan.error.BookUnSupportedFieldPatchException;
 import ru.ruslan.model.Book;
-import ru.ruslan.repository.BookRepository;
+import ru.ruslan.repository.contract.BookRepository;
 import ru.ruslan.repository.BookRepositoryJdbcTemplateImpl;
+import ru.ruslan.repository.contract.BookRepositoryJdbcTemplate;
+import ru.ruslan.service.contract.BookService;
 
 import java.sql.Date;
 import java.util.List;
@@ -20,7 +22,7 @@ import java.util.Optional;
 @AllArgsConstructor
 public class BookServiceImpl implements BookService {
     private final BookRepository repository;
-    private BookRepositoryJdbcTemplateImpl bookRepositoryJdbcTemplate;
+    private BookRepositoryJdbcTemplate bookRepositoryJdbcTemplate;
 
     @Override
     public Book modification(Book newBook, Long id) {

@@ -5,10 +5,8 @@ import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
-import org.springframework.data.domain.PageRequest;
-import org.springframework.data.domain.Pageable;
 import ru.ruslan.model.Book;
-import ru.ruslan.repository.BookRepository;
+import ru.ruslan.repository.contract.BookRepository;
 
 import java.net.URL;
 
