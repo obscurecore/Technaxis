@@ -10,7 +10,6 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @Builder
 public class BookStatistics {
-    private Long id;
     private String title;
     private Integer count;
 }
