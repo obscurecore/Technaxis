@@ -3,6 +3,7 @@
 ## Table of Contents
 - [Database Model](#database-model)
 - [Dockerizing](#dockerizing)
+- [API SpringRestDoc](#spring-restapidoc)
 
   
   
@@ -58,3 +59,50 @@ run the below command to create
 of an image of our application.
 
 `mvn clean package docker:build`
+
+
+## Spring RestApiDoc
+Documentation is generated automatically when running tests.
+
+The REST service documentation is guaranteed to match the logic of operation. The documentation is synchronized with the application logic
+```text
+MockHttpServletRequest:
+      HTTP Method = GET
+      Request URI = /books/209
+       Parameters = {}
+          Headers = []
+             Body = null
+    Session Attrs = {}
+
+Handler:
+             Type = ru.ruslan.controller.BookRestController
+           Method = ru.ruslan.controller.BookRestController#findOne(Long)
+
+Async:
+    Async started = false
+     Async result = null
+
+Resolved Exception:
+             Type = null
+
+ModelAndView:
+        View name = null
+             View = null
+            Model = null
+
+FlashMap:
+       Attributes = null
+
+MockHttpServletResponse:
+           Status = 200
+    Error message = null
+          Headers = [Content-Type:"application/json"]
+     Content type = application/json
+             Body = {"id":209,"title":"Ruslan","description":"Description","author":"author","isbn":"","printYear":2020,"readAlready":false,"image":"http://example.com/"}
+    Forwarded URL = null
+   Redirected URL = null
+          Cookies = []
+
+
+
+```
