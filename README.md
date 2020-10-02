@@ -2,6 +2,7 @@
 
 ## Table of Contents
 - [Database Model](#database-model)
+- [Dockerizing](#dockerizing)
 
   
   
@@ -40,3 +41,8 @@ FROM book
          INNER JOIN book_vector bv on book.id = bv.id
 WHERE tsv @@ plainto_tsquery('rus');
 ```
+## Dockerizing
+run the below command to create 
+of an image of our application.
+
+`mvn clean package docker:build`
